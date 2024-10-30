@@ -1,0 +1,21 @@
+.body-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #e3f2fd;
+}
+.bon {
+  width: 300px;
+}
+.Login-form {
+  padding: 20px;
+  border: 1px solid #ccc;
+  background-color: #ffffff; /* พื้นหลังสีขาวสำหรับฟอร์ม */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.Login-btn {
+  display: block;
+  margin: 15px auto; /* จัดให้อยู่ตรงกลาง */
+}
