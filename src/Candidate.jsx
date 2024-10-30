@@ -26,12 +26,12 @@ function Candidate() {
         ? Object.entries(data).map(([id, info]) => ({
             id,
             ...info,
-            score: typeof info.score === "number" ? info.score : 0, // ตรวจสอบให้แน่ใจว่า score เป็นตัวเลข
+            score: typeof info.score === "number" ? info.score : 0,
           }))
         : [];
       setCandidates(candidatesList);
     });
-  }, [year]);
+  }, [year, database]); // เพิ่ม `database` ลงใน dependency array
 
   // ฟังก์ชันสำหรับเพิ่มผู้สมัครใหม่
   const addCandidate = async () => {
