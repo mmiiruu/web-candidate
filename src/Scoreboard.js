@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { ref, set, get, update, onValue } from "firebase/database";
-import { database } from "./firebaseConfig"; // ไฟล์ที่เชื่อมต่อ Firebase
+import { database } from "./firebaseConfig"; 
 
 function Scoreboard() {
   const [score, setScore] = useState(0);
 
-  // ฟังก์ชันสำหรับเพิ่มคะแนน
   function addScore() {
-    const scoreRef = ref(database, "scores/point1"); // กำหนดตำแหน่งที่เก็บคะแนน
+    const scoreRef = ref(database, "scores/point1"); 
     get(scoreRef).then((snapshot) => {
       if (snapshot.exists()) {
         const currentScore = snapshot.val();
@@ -17,8 +16,6 @@ function Scoreboard() {
       }
     });
   }
-
-  // อ่านข้อมูลแบบเรียลไทม์เพื่ออัพเดตคะแนนทันที
   useEffect(() => {
     const scoreRef = ref(database, "scores/point1");
     onValue(scoreRef, (snapshot) => {
