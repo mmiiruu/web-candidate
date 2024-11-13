@@ -10,14 +10,13 @@ import {
 } from "firebase/database";
 import "./css/candidate.css";
 function Candidate() {
-  const { year } = useParams(); // รับพารามิเตอร์ปีจาก URL
-  const navigate = useNavigate(); // ใช้ useNavigate สำหรับปุ่มย้อนกลับ
+  const { year } = useParams();
+  const navigate = useNavigate();
   const [candidates, setCandidates] = useState([]);
   const [name, setName] = useState("");
   const [photo, setPhoto] = useState("");
   const database = getDatabase();
 
-  // อ่านข้อมูลผู้สมัครแบบเรียลไทม์
   useEffect(() => {
     const candidatesRef = ref(database, `elections/${year}/candidates`);
     onValue(candidatesRef, (snapshot) => {
@@ -31,16 +30,15 @@ function Candidate() {
         : [];
       setCandidates(candidatesList);
     });
-  }, [year, database]); // เพิ่ม `database` ลงใน dependency array
+  }, [year, database]); 
 
-  // ฟังก์ชันสำหรับเพิ่มผู้สมัครใหม่
   const addCandidate = async () => {
     if (name && photo) {
       try {
         const candidatesRef = ref(database, `elections/${year}/candidates`);
         await push(candidatesRef, { name, photo, score: 0 });
-        setName(""); // รีเซ็ตฟิลด์ชื่อ
-        setPhoto(""); // รีเซ็ตฟิลด์รูปภาพ
+        setName(""); 
+        setPhoto(""); 
       } catch (error) {
         console.error("Error adding candidate:", error);
       }
@@ -49,13 +47,13 @@ function Candidate() {
     }
   };
 
-  // ฟังก์ชันสำหรับเพิ่มคะแนน
+
   const incrementScore = async (id, currentScore) => {
     const scoreRef = ref(database, `elections/${year}/candidates/${id}`);
     await update(scoreRef, { score: (currentScore || 0) + 1 });
   };
 
-  // ฟังก์ชันสำหรับลบผู้สมัคร
+
   const deleteCandidate = async (id) => {
     const candidateRef = ref(database, `elections/${year}/candidates/${id}`);
     await remove(candidateRef);
@@ -66,12 +64,12 @@ function Candidate() {
       <button className="rollback" onClick={() => navigate(-1)}>
         Back
       </button>{" "}
-      {/* ปุ่มย้อนกลับ */}
+  
       <h2>Candidates for {year}</h2>
       {candidates.length === 0 && (
         <p>No candidates found. Add a new candidate below:</p>
       )}
-      {/* คอนเทนเนอร์สำหรับการ์ดผู้สมัคร */}
+
       <div className="candidate-container">
         {candidates.map((candidate) => (
           <div className="card" key={candidate.id}>
